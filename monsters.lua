@@ -1144,21 +1144,27 @@ function setup()
         }
     }
 
+    local shroomhive_intent = {}
+    for i = 1, 3 do
+        local skip = 0.45
+        shroomhive_intent[i] = {-2.385 + (i - 1) * skip, -1.942}
+    end
+
     local boss_intent_table = {
         { -- Act I
-            {-2.095, 0.45}, --ok
-            nil,
-            nil, 
+            {-2.095, 0.45}, -- Deepcrawl Worm
+            shroomhive_intent, -- Shroomhive (cobes for the tracking)
+            {-2.095, 0.701} -- Webmother
         },
         { -- Act II
-            nil,
-            nil,
-            nil, 
+            {-2.095, 0.805}, -- Serpent King
+            {-2.095, 0.708}, -- Gremlinator
+            {-2.095, 0.928}  -- The Enlightened
         },
         { -- Act III 
-            nil,
-            nil,
-            nil, 
+            {-2.095, 0.892}, -- Clayform
+            {-2.095, 0.898}, -- Doomgazer
+            {-2.095, 0.534}  -- Frost Wraith
         }
     }
 
