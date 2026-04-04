@@ -112,6 +112,13 @@ function onLoad()
     --[[ print('onLoad!') --]]
     createLabel()
 
+    --[[ ------------------------------------------------------------------------------
+
+    We check if the game has already started, if it haw then we immediately patch. This
+    supports the sequence where players load the StS mod, select their characters, then
+    start the game, and after that do the 'additive load' of this mod.
+
+    -------------------------------------------------------------------------------- ]]
     local GameStarted = Global.getVar("GAME_STARTED")
     if GameStarted ~= nil then
         if GameStarted then
@@ -120,15 +127,24 @@ function onLoad()
         end
     end
 
-    local obj = getObjectFromGUID("d4e0e6")
-    if obj ~= nil then
+    --[[ ------------------------------------------------------------------------------
+
+    We track the position of the boot meeple to know when to invoke the setup function.
+    When the boot meeple moves to the starting spot on the map we know that we are late
+    enough in setup to be able to safely unpack and that we can patch all the relevant
+    data tables with the information for the new monsters.
+
+    -------------------------------------------------------------------------------- ]]
+    local boot_meeple = getObjectFromGUID("d4e0e6")
+    if boot_meeple ~= nil then
         Wait.condition(patch_, function()   
-            local pos = obj.getPosition()
+            local pos = boot_meeple.getPosition()
             return (-1.35 < pos[1] and pos[1] < -1.33) and 
                 (1.05 < pos[2] and pos[2] < 1.07) and
                 (0.50 < pos[3] and pos[3] < 0.52)
         end)
     end
+    -----------------------------------------------------------------------------------
 end
 
 function createLabel()
