@@ -1,5 +1,5 @@
-require("tts-slayer-pack/ui-create-label")
-require("tts-slayer-pack/debug")
+require("tts-slayer-pack/src/ui-create-label")
+require("tts-slayer-pack/src/debug")
 
 function onLoad()
 
