@@ -1,6 +1,6 @@
 # Silbo's Slayer Pack - Enemies
 
-This is a Tabletop Simulator mod implementating the enemies part of Silbo's Slayer Pack.
+This is a Tabletop Simulator mod implementing the enemies part of Silbo's Slayer Pack.
 
 - Reddit: https://www.reddit.com/r/slaythespire/comments/1qyt2c9
 - Board Game Geek: https://boardgamegeek.com/thread/3368240
