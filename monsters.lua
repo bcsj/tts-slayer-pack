@@ -1,8 +1,10 @@
+
 function onLoad()
 
+    -- Debug setting
     DEBUG = false
-    DEBUG_FORCE_NEW_BOSS = false
-    DEBUG_FORCE_BOSS_PICK = nil
+    DEBUG_FORCE_NEW_BOSS = false -- forces a new boss for act 1
+    DEBUG_FORCE_BOSS_PICK = nil  -- selects which new boss we spawn for act 1
 
     -----------------------------------------------
     -- StS Mod GUIDs
@@ -69,6 +71,7 @@ function onLoad()
 
     act4_shield_guid = "cf672f"
     act4_spear_guid = "2f9221"
+
     -----------------------------------------------
     -- This mod GUIDs
     first_enemy_deck_guid = "dc7982"
@@ -109,7 +112,7 @@ function onLoad()
         "c3b8fc"  -- Act IV
     }
 
-    --[[ print('onLoad!') --]]
+    -- Create label for the box
     createLabel()
 
     --[[ ------------------------------------------------------------------------------
