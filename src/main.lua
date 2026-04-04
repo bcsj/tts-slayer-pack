@@ -497,7 +497,6 @@ function setup()
         local content_first_enemy = deck_first_enemy.getObjects()
 
         for i, v in ipairs(content_first_enemy) do
-            --SUMMON_ASSOCIATION[v.guid] = {}
             local list = {}
             for k = 1, #first_enemy_summon_table[i] do
                 local sublist = {}
@@ -507,7 +506,7 @@ function setup()
                 list[k] = sublist
             end
             if type(next(list)) == "nil" then
-                --SUMMON_ASSOCIATION[v.guid] = nil
+                -- nothing here
             else
                 SUMMON_ASSOCIATION[v.guid] = {}
                 SUMMON_ASSOCIATION[v.guid]["Summons"] = list
@@ -524,7 +523,6 @@ function setup()
         local content_enemy = deck_enemy.getObjects()
 
         for i, v in ipairs(content_enemy) do
-            --SUMMON_ASSOCIATION[v.guid] = {}
             local list = {}
             for k = 1, #enemy_summon_table[act][i] do
                 local sublist = {}
@@ -534,7 +532,7 @@ function setup()
                 list[k] = sublist
             end
             if type(next(list)) == "nil" then
-                --SUMMON_ASSOCIATION[v.guid] = nil
+                -- nothing here
             else
                 SUMMON_ASSOCIATION[v.guid] = {}
                 SUMMON_ASSOCIATION[v.guid]["Summons"] = list
@@ -553,7 +551,6 @@ function setup()
         local content_elite = deck_elite.getObjects()
 
         for i, v in ipairs(content_elite) do
-            --SUMMON_ASSOCIATION[v.guid] = {}
             local list = {}
             for k = 1, #elite_summon_table[act][i] do
                 local sublist = {}
@@ -563,7 +560,7 @@ function setup()
                 list[k] = sublist
             end
             if type(next(list)) == "nil" then
-                --SUMMON_ASSOCIATION[v.guid] = nil
+                -- nothing here
             else
                 SUMMON_ASSOCIATION[v.guid] = {}
                 SUMMON_ASSOCIATION[v.guid]["Summons"] = list
@@ -586,7 +583,6 @@ function setup()
         local content_boss = deck_boss.getObjects()
 
         for i, v in ipairs(content_boss) do
-            --SUMMON_ASSOCIATION[v.guid] = {}
             local list = {}
             for k = 1, #boss_summon_table[act][i] do
                 local sublist = {}
@@ -596,12 +592,13 @@ function setup()
                 list[k] = sublist
             end
             if type(next(list)) == "nil" then
-                --SUMMON_ASSOCIATION[v.guid] = nil
+                -- nothing here
             else
                 SUMMON_ASSOCIATION[v.guid] = {}
                 SUMMON_ASSOCIATION[v.guid]["Summons"] = list
                 SUMMON_ASSOCIATION[v.guid]["Boss Summons"] = {}
                 SUMMON_ASSOCIATION[v.guid]["Flavor"] = {}
+                -- TODO: Broken for Frost Wraith? check ...
                 if #list == 1 or #list == 2 then
                     SUMMON_ASSOCIATION[v.guid]["Flavor"]["Per Player"] = 2
                 elseif #list == 3 then
@@ -638,12 +635,19 @@ function setup()
         }
     }
 
-    -- HP trick: for summons with HP that depends on the number of players,
-    -- we set the HP value based on "the last digit in their HP" +1 because
-    -- cards with scaling HP like that count from 0 instead.
-    -- The HP cubes to track other digits are set using the mechanics which
-    -- are also used to set the cube marking the action the enemy would take,
-    -- this part is setup using the INTENT cubes.
+    --[[ ------------------------------------------------------------------------------
+    ===  HP trick  ===
+    -----------------------------------------------------------------------------------
+
+    For summons with HP that depends on the number of players,
+    we set the HP value based on "the last digit in their HP" +1 because
+    cards with scaling HP like that count from 0 instead.
+
+    The HP cubes to track other digits are set using the mechanics which
+    are also used to set the cube marking the action the enemy would take,
+    this part is setup using the INTENT cubes.
+
+    -------------------------------------------------------------------------------- ]]
     local summon_hp_table = {
         { -- Act I
             4, 4, 6,            -- Battleshroom, Battleshroom, Ghoul
@@ -707,7 +711,7 @@ function setup()
     local glimmerwing_hp = {95, 190, 285, 380}
     local netherflame_hp = {66, 132, 198, 264}
 
-    if asc >= 12 then
+    if asc >= 12 then -- update for ascension variants
         -- Act I
         goobert_hp = {15, 31, 48, 66}
         imp_hp = {13, 27, 42, 58}
@@ -755,7 +759,7 @@ function setup()
     local doomgazer_hp = {110, 220, 330, 440}
     local frost_wraith_hp = {95, 190, 285, 380}
 
-    if asc >= 10 then
+    if asc >= 10 then -- update for ascension variants
         deepcrawl_worm_hp = {50, 100, 150, 200}
         shroomhive_hp = {34, 71, 111, 154}
         webmother_hp = {41, 82, 123, 164}
