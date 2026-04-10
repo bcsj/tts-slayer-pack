@@ -14,4 +14,6 @@ The mod is available on the Steam Workshop
 ## Special thanks to
 
 - Silbo for making the amazing set of new monsters for the Slay the Spire tabletop game.
+- Contention Games for the Slay the Spire Boardgame adaption.
+- Mega Crit Games for Slay the Spire, the videogame.
 - rolandostar for their incredible extension for VSCode.
