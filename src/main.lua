@@ -150,6 +150,8 @@ function onLoad()
         end)
     end
     -----------------------------------------------------------------------------------
+
+    loadNonEnemies()
 end
 
 
@@ -1408,4 +1410,84 @@ function setup()
 
     end
 
+end
+
+
+function loadNonEnemies()
+    -----------------------------------------------
+    -- Object GUIDs to correlate with base game decks
+
+    -- Correlate base game GUIDs to mod GUIDs. Each key in this table is the GUID of a deck in the base game
+    -- and the value is the deck GUID that should be appended to that stack PRIOR to the game being loaded.
+    decks = {
+        -- defect
+        ['8cf2ec'] = 'c4ec57', -- rewards
+        ['e0769d'] = '4056b2', -- rewards upgraded
+        ['ba6c5b'] = 'a41fe0', -- rare
+        ['07ecb9'] = 'd24f88', -- rare upgraded
+        -- ironclad
+        ['6355da'] = '743dbf', -- rewards
+        ['9a4007'] = 'c88204', -- rewards upgraded
+        ['2b8379'] = '89a14a', -- rare
+        ['c16bb3'] = '4dce01', -- rare upgraded
+        -- silent
+        ['db37c0'] = '3dcc9f', -- rewards
+        ['0b9dcc'] = 'aea464', -- rewards upgraded
+        ['1641bf'] = 'a840ac', -- rare
+        ['cdb9a0'] = '89a066', -- rare upgraded
+        -- watcher
+        ['d31ff8'] = '01bf76', -- rewards
+        ['2da0ab'] = '49e711', -- rewards upgraded
+        ['dc3185'] = '49435e', -- rare
+        ['a15719'] = '537f0d', -- rare upgraded
+        -- boss relics
+        ['d6b384'] = 'd0e632',
+        -- relics
+        ['0f8234'] = 'cccf0b',
+        -- potions
+        ['72a869'] = '054422',
+        -- curses
+        ['9fc22a'] = 'e277f0',
+        -- colorless
+        ['80fcb6'] = 'aff298', -- standard
+        ['7f7cc9'] = 'f4ce1a', -- upgraded
+    }
+
+    local GameStarted = Global.getVar("GAME_STARTED")
+    if GameStarted ~= nil then
+        if GameStarted == false then
+            unpackNonEnemies()
+        else
+            local msg = "Cannot unpack Slayer Pack non-enemy cards when a game is in progress. Please load a fresh game and load the mod prior to starting."
+            broadcastToAll(msg)
+            log(msg)
+        end
+    end
+end
+
+function unpackNonEnemies()
+    local box = getObjectFromGUID('7b5e4a')
+    for key, val in pairs(decks) do
+        local base = getObjectFromGUID(key)
+
+        local addon = box.takeObject({
+            guid = val,
+        })
+
+
+        -- Set the Y elevation high so these cards will be dropped on top.
+        local newPosition
+        if key == "80fcb6" then
+            -- The colorless deck is the only one that is face down compared to its upgrade, so we need to use a low Y
+            -- elevation to have it placed _under_ the deck.
+            newPosition = {0, 0, 0}
+        else
+            newPosition = {0, 100, 0}
+        end
+        addon.setPosition(newPosition)
+
+        base.putObject(addon)
+
+        broadcastToAll("Slayer Pack unpacked. Enjoy!")
+    end
 end
