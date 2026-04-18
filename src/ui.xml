@@ -1,0 +1,54 @@
+<Text 
+    color="#0099ff" 
+    outline="white" 
+    outlineSize="3 3" 
+    scale=".14 .14 .14" 
+    fontSize="100" 
+    position="0 -12 -60" 
+    rotation="180 180 0"
+>
+Silbo's
+Slayer Pack
+</Text>
+
+<Panel 
+    height="500" 
+    width="800" 
+    scale=".1 .1 .1" 
+    position="0 35 -60" 
+    rotation="180 180 0"
+    alignment="LowerCenter"
+>
+    <VerticalLayout spacing="25" childForceExpandHeight="false">
+        <HorizontalLayout spacing="300" childForceExpandHeight="false">
+            <VerticalLayout spacing="25" childForceExpandHeight="false">
+                <Text color="white" fontSize="90" alignment="MiddleLeft">Enemies</Text>
+                <Text color="white" fontSize="90" alignment="MiddleLeft">Cards</Text>
+            </VerticalLayout>
+            <VerticalLayout spacing="25" childForceExpandHeight="false">
+                <Toggle 
+                    id="enemiesToggle" 
+                    toggleWidth="90"
+                    toggleHeight="90"
+                    alignment="MiddleRight"
+                    onValueChanged="toggleChanged"
+                    isOn="True"/>
+                <Toggle 
+                    id="cardsToggle" 
+                    toggleWidth="90"
+                    toggleHeight="90"
+                    alignment="MiddleRight"
+                    onValueChanged="toggleChanged"
+                    isOn="True"/>
+            </VerticalLayout>
+        </HorizontalLayout>
+        <Button
+        minHeight="100" 
+            id="applyButton" 
+            onClick="applyClicked" 
+            fontSize="75" 
+            color="#0099ff" 
+            >Apply</Button>
+    </VerticalLayout>
+</Panel>
+
