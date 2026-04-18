@@ -1,7 +1,6 @@
 
 function applyClicked(player, clickType, xmlId)
-    local withCards = isToggled("cardsToggle")
-    if withCards then
+    if withCharacterCards() then
         unpackCharacterCards()
     end
     disableUI()
@@ -9,6 +8,14 @@ end
 
 function isToggled(xmlId)
     return self.UI.getAttribute(xmlId, "isOn") == "True"
+end
+
+function withCharacterCards()
+    return isToggled("cardsToggle")
+end
+
+function withEnemies()
+    return isToggled("enemiesToggle")
 end
 
 function disableUI()
