@@ -4,6 +4,7 @@ require("tts-slayer-pack/src/util")
 require("tts-slayer-pack/src/ui")
 require("tts-slayer-pack/src/non-enemy-cards")
 
+require("tts-slayer-pack/src/enemies/setup")
 require("tts-slayer-pack/src/enemies/enemy-cards")
 require("tts-slayer-pack/src/enemies/enemy-types")
 require("tts-slayer-pack/src/enemies/enemy-intents")
@@ -230,7 +231,7 @@ function unpack_(do_setup)
     end
 
     if do_setup then
-        Wait.condition(setup, function()
+        Wait.condition(setupEnemies, function()
             check = (not deck_first.spawning and not deck_first.loading_custom)
                 and (not deck_enemy[1].spawning and not deck_enemy[1].loading_custom) 
                 and (not deck_enemy[2].spawning and not deck_enemy[2].loading_custom)
@@ -250,22 +251,4 @@ function unpack_(do_setup)
     end
 end
 
-function setup()
-    ---------------------------------------------------------------
-    -- One of the enemies uses Silent's poison tokens
-    -- so if Silent is not in the game, we bring them
-    -- out for convenience.
-    if not isInGame("Silent") then
-        getPoisonTokens()
-    end
 
-    -----------------------------------------------
-    setupEnemySummons()
-    setupEnemyHP()
-    setupEnemyRewards()
-    setupEnemyIntents()
-    setupEnemyTypes()
-
-    -----------------------------------------------
-    mergeEnemyDecks()
-end
