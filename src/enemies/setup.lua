@@ -18,7 +18,19 @@ function setupEnemies()
     mergeEnemyDecks()
 end
 
-function unwrap_(do_setup)
+function packEnemyDecks()
+    unlockAndPutFromGUID(self, first_enemy_deck_guid)
+
+    for act = 1,3 do
+        unlockAndPutFromGUID(self, enemy_deck_guid[act])
+        unlockAndPutFromGUID(self, summon_deck_guid[act])
+        unlockAndPutFromGUID(self, elite_deck_guid[act])
+        unlockAndPutFromGUID(self, boss_deck_guid[act])
+    end
+    unlockAndPutFromGUID(self, boss_deck_guid[4])
+end
+
+function unpackEnemyDecks()
     local asc = getAscensionLevel()
     local rot = {0, 180, 180}
     -----------------------------------------------
@@ -118,7 +130,5 @@ function unwrap_(do_setup)
         })        
     end
 
-    if do_setup then
-        whenReady(decks, setupEnemies)
-    end
+    return decks
 end

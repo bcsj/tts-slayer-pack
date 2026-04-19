@@ -117,18 +117,10 @@ function asc_check()
 end
 
 function unwrap()
-    unwrap_(true)
+    local decks = unpackEnemyDecks()
+    whenReady(decks, setupEnemies)
 end
 
-function wrap_()
-    unlockAndPutFromGUID(self, first_enemy_deck_guid)
 
-    for act = 1,3 do
-        unlockAndPutFromGUID(self, enemy_deck_guid[act])
-        unlockAndPutFromGUID(self, summon_deck_guid[act])
-        unlockAndPutFromGUID(self, elite_deck_guid[act])
-        unlockAndPutFromGUID(self, boss_deck_guid[act])
-    end
-end
 
 
