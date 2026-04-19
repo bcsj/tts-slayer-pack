@@ -17,7 +17,9 @@
                 <Toggle class="checkbox" id="cardsToggle"/>
             </VerticalLayout>
         </HorizontalLayout>
-        <Button class="apply" id="applyButton" onClick="applyClicked">Apply</Button>
+        <Button class="apply" id="applyButton" onClick="applyClicked">
+            <Text class="applyText" id="applyButtonText">Apply</Text>
+        </Button>
     </VerticalLayout>
 </Panel>
 

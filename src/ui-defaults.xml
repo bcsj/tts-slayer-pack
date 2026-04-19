@@ -49,5 +49,9 @@
         fontSize="75" 
         color="#0099ff"
         minHeight="100"
-    /> 
+    />
+    <Text
+        class="applyText"
+        fontSize="75"
+    />
 </Defaults>

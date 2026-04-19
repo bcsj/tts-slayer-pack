@@ -1,21 +1,20 @@
 
+TOGGLE_ENEMIES = true
+TOGGLE_NON_ENEMY = true
+
 function applyClicked(player, clickType, xmlId)
-    if withCharacterCards() then
+    if withNonEnemies() then
         unpackCharacterCards()
     end
     disableUI()
 end
 
-function isToggled(xmlId)
-    return self.UI.getAttribute(xmlId, "isOn") == "True"
-end
-
-function withCharacterCards()
-    return isToggled("cardsToggle")
-end
-
 function withEnemies()
-    return isToggled("enemiesToggle")
+    return TOGGLE_ENEMIES
+end
+
+function withNonEnemies()
+    return TOGGLE_NON_ENEMY
 end
 
 function disableUI()
@@ -23,15 +22,15 @@ function disableUI()
     self.UI.setAttribute("enemiesToggle", "interactable", "false")
     self.UI.setAttribute("cardsToggle", "interactable", "false")
 
-    local xml = self.UI.getXmlTable()
-    xml[2]["children"][1]["children"][2]["value"] = "Waiting for Game Start ..."
-    xml[2]["children"][1]["children"][2]["attributes"]["fontSize"] = "57"
-    self.UI.setXmlTable(xml)
-
-    self.UI.setAttribute("cardsToggle", "isOn", toggleCharacterCards)
-    self.UI.setAttribute("enemiesToggle", "isOn", toggleEnemies)
+    self.UI.setValue("applyButtonText", "Waiting for Game Start ...")
+    self.UI.setAttribute("applyButtonText", "fontSize", "57")
 end
 
-function toggleState(player, state, xmlId)    
-    self.UI.setAttribute(xmlId, "isOn", state)
+function toggleState(player, state, xmlId)   
+    if xmlId == "enemiesToggle" then
+        TOGGLE_ENEMIES = state == "True"
+    elseif xmlId == "cardsToggle" then
+        TOGGLE_NON_ENEMY = state == "True"
+    end
 end
+
