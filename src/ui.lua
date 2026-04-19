@@ -1,20 +1,14 @@
 
+-- Toggle options for the UI
 TOGGLE_ENEMIES = true
 TOGGLE_NON_ENEMY = true
 
+-- Callback for the apply button
 function applyClicked(player, clickType, xmlId)
     if withNonEnemies() then
         unpackCharacterCards()
     end
     disableUI()
-end
-
-function withEnemies()
-    return TOGGLE_ENEMIES
-end
-
-function withNonEnemies()
-    return TOGGLE_NON_ENEMY
 end
 
 function disableUI()
@@ -24,6 +18,15 @@ function disableUI()
 
     self.UI.setValue("applyButtonText", "Waiting for Game Start ...")
     self.UI.setAttribute("applyButtonText", "fontSize", "57")
+end
+
+-- Toggles
+function withEnemies()
+    return TOGGLE_ENEMIES
+end
+
+function withNonEnemies()
+    return TOGGLE_NON_ENEMY
 end
 
 function toggleState(player, state, xmlId)   
