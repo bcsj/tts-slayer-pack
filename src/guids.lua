@@ -111,78 +111,34 @@ boss_asc_deck_guid = {
 -- ============================================
 -- CHARACTER PART
 
------------------------------------------------
--- StS Mod GUIDs
-sts_character_cards = {
-    ironclad = {
-        "6355da", -- reward deck
-        "9a4007", -- rare deck
-        "2b8379", -- reward deck upg
-        "c16bb3"  -- rare deck upg
-    },
-    silent = {
-        "db37c0", -- reward deck
-        "0b9dcc", -- rare deck
-        "1641bf", -- reward deck upg
-        "cdb9a0"  -- rare deck upg
-    },
-    defect = {
-        "8cf2ec", -- reward deck
-        "e0769d", -- rare deck
-        "ba6c5b", -- reward deck upg
-        "07ecb9"  -- rare deck upg
-    },
-    watcher = {
-        "d31ff8", -- reward deck
-        "2da0ab", -- rare deck
-        "dc3185", -- reward deck upg
-        "a15719"  -- rare deck upg
-    },
-    other = {
-        "80fcb6", -- colorless deck
-        "7f7cc9", -- colorless upgrade deck
-        "9fc22a", -- curse deck
-        "d6b384", -- boss relic deck
-        "0f8234", -- relic deck
-        "72a869"  -- potion deck
-    }
-}
-
-
---------------------------------------------------
--- This mod GUIDs
-
-mod_character_cards = {
-    ironclad = {
-        "743dbf", -- reward deck
-        "c88204", -- rare deck
-        "89a14a", -- reward deck upg
-        "4dce01"  -- rare deck upg
-    },
-    silent = {
-        "3dcc9f", -- reward deck
-        "aea464", -- rare deck
-        "a840ac", -- reward deck upg
-        "89a066"  -- rare deck upg
-    },
-    defect = {
-        "c4ec57", -- reward deck
-        "4056b2", -- rare deck
-        "a41fe0", -- reward deck upg
-        "d24f88"  -- rare deck upg
-    },
-    watcher = {
-        "01bf76", -- reward deck
-        "49e711", -- rare deck
-        "49435e", -- reward deck upg
-        "537f0d"  -- rare deck upg
-    },
-    other = {
-        "aff298", -- colorless deck
-        "f4ce1a", -- colorless upgrade deck
-        "e277f0", -- curse deck
-        "d0e632", -- boss relic deck
-        "cccf0b", -- relic deck
-        "054422"  -- potion deck
-    }
+-- Correlate base game card deck GUIDs to mod GUIDs.
+-- Key = base game deck GUID, value = mod deck GUID to merge into it.
+character_card_decks = {
+    -- ironclad
+    ['6355da'] = '743dbf', -- reward deck
+    ['9a4007'] = 'c88204', -- rare deck
+    ['2b8379'] = '89a14a', -- reward deck upg
+    ['c16bb3'] = '4dce01', -- rare deck upg
+    -- silent
+    ['db37c0'] = '3dcc9f', -- reward deck
+    ['0b9dcc'] = 'aea464', -- rare deck
+    ['1641bf'] = 'a840ac', -- reward deck upg
+    ['cdb9a0'] = '89a066', -- rare deck upg
+    -- defect
+    ['8cf2ec'] = 'c4ec57', -- reward deck
+    ['e0769d'] = '4056b2', -- rare deck
+    ['ba6c5b'] = 'a41fe0', -- reward deck upg
+    ['07ecb9'] = 'd24f88', -- rare deck upg
+    -- watcher
+    ['d31ff8'] = '01bf76', -- reward deck
+    ['2da0ab'] = '49e711', -- rare deck
+    ['dc3185'] = '49435e', -- reward deck upg
+    ['a15719'] = '537f0d', -- rare deck upg
+    -- other
+    ['80fcb6'] = 'aff298', -- colorless deck
+    ['7f7cc9'] = 'f4ce1a', -- colorless upgrade deck
+    ['9fc22a'] = 'e277f0', -- curse deck
+    ['d6b384'] = 'd0e632', -- boss relic deck
+    ['0f8234'] = 'cccf0b', -- relic deck
+    ['72a869'] = '054422', -- potion deck
 }
