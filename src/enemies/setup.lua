@@ -33,6 +33,7 @@ end
 function unpackEnemyDecks()
     local asc = getAscensionLevel()
     local rot = {0, 180, 180}
+    local pos = self.getPosition()
     -----------------------------------------------
     local decks = {}
 
@@ -44,9 +45,9 @@ function unpackEnemyDecks()
     self.takeObject({
         guid = first_enemy_deck_guid,
         position = {
-            self.getPosition()[1] + -5,
-            self.getPosition()[2] + 3,
-            self.getPosition()[3] - 3.5
+            pos[1] + -5,
+            pos[2] + 3,
+            pos[3] - 3.5
         },
         rotation = rot,
         smooth = false,
@@ -57,9 +58,9 @@ function unpackEnemyDecks()
         self.takeObject({
             guid = enemy_deck_guid[act],
             position = {
-                self.getPosition()[1] + -2.5,
-                self.getPosition()[2] + 3,
-                self.getPosition()[3] + 3.5*(act - 1) - 3.5
+                pos[1] + -2.5,
+                pos[2] + 3,
+                pos[3] + 3.5*(act - 1) - 3.5
             },
             rotation = rot,
             smooth = false,
@@ -69,9 +70,9 @@ function unpackEnemyDecks()
         self.takeObject({
             guid = summon_deck_guid[act],
             position = {
-                self.getPosition()[1],
-                self.getPosition()[2] + 3,
-                self.getPosition()[3] + 3.5*(act - 1) - 3.5
+                pos[1],
+                pos[2] + 3,
+                pos[3] + 3.5*(act - 1) - 3.5
             },
             rotation = rot,
             smooth = false,
@@ -81,9 +82,9 @@ function unpackEnemyDecks()
         self.takeObject({
             guid = elite_deck_guid[act],
             position = {
-                self.getPosition()[1] + 2.5,
-                self.getPosition()[2] + 3,
-                self.getPosition()[3] + 3.5*(act - 1) - 3.5
+                pos[1] + 2.5,
+                pos[2] + 3,
+                pos[3] + 3.5*(act - 1) - 3.5
             },
             rotation = rot,
             smooth = false,
@@ -93,9 +94,9 @@ function unpackEnemyDecks()
         self.takeObject({
             guid = boss_deck_guid[act],
             position = {
-                self.getPosition()[1] + 7.5,
-                self.getPosition()[2] + 3,
-                self.getPosition()[3] + 4.5*(act - 1) - 4.5
+                pos[1] + 7.5,
+                pos[2] + 3,
+                pos[3] + 4.5*(act - 1) - 4.5
             },
             rotation = rot,
             smooth = false,
@@ -107,9 +108,9 @@ function unpackEnemyDecks()
     self.takeObject({
         guid = boss_deck_guid[4],
         position = {
-            self.getPosition()[1] + 7.5,
-            self.getPosition()[2] + 3,
-            self.getPosition()[3] + 4.5*(4 - 1) - 4.5
+            pos[1] + 7.5,
+            pos[2] + 3,
+            pos[3] + 4.5*(4 - 1) - 4.5
         },
         rotation = rot,
         smooth = false,
@@ -120,9 +121,9 @@ function unpackEnemyDecks()
         self.takeObject({
             guid = elite_deck_guid[4],
             position = {
-                self.getPosition()[1] + 2.5,
-                self.getPosition()[2] + 3,
-                self.getPosition()[3] + 4.5*(4 - 1) - 4.5
+                pos[1] + 2.5,
+                pos[2] + 3,
+                pos[3] + 4.5*(4 - 1) - 4.5
             },
             rotation = rot,
             smooth = false,
