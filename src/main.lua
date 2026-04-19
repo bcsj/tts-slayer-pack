@@ -67,8 +67,8 @@ end
 function patch_()
     if withEnemies() then
         patch()
-        self.setPositionSmooth(Vector(-17, 7, 31), false, false)
     end
+    self.setPositionSmooth(Vector(-17, 7, 31), false, false)
 end
 
 function patch()

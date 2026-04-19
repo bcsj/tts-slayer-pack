@@ -1,0 +1,53 @@
+<Defaults>
+    <!-- Layout styles -->
+    <Panel
+        height="350" 
+        width="800" 
+        scale=".1 .1 .1" 
+        position="0 27 -60" 
+        rotation="180 180 0"
+        alignment="LowerCenter"
+    />   
+    <HorizontalLayout
+        childForceExpandHeight="false"
+        spacing="300"
+    />
+    <VerticalLayout
+        childForceExpandHeight="false" 
+        spacing="25"
+    />
+    <!-- Title style -->
+    <Text
+        class="title"
+        color="#0099ff" 
+        outline="white" 
+        outlineSize="3 3" 
+        scale=".14 .14 .14" 
+        fontSize="100" 
+        position="0 -12 -60" 
+        rotation="180 180 0"
+    />
+    <!-- Options styles -->
+    <Text
+        class="option"
+        color="white" 
+        fontSize="90"
+        alignment="MiddleLeft"
+    />
+    <!-- Check box style-->
+    <Toggle
+        class="checkbox"
+        toggleWidth="90"
+        toggleHeight="90"
+        alignment="MiddleRight"
+        onValueChanged="toggleState"
+        isOn="True"
+    />
+    <!-- Button style -->
+    <Button
+        class="apply"
+        fontSize="75" 
+        color="#0099ff"
+        minHeight="100"
+    /> 
+</Defaults>
