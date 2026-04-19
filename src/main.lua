@@ -57,6 +57,7 @@ function onLoad(saveState)
         when(isBootMeepleInStartingPosition, patch)
     end
     -----------------------------------------------------------------------------------
+    configUI()
 end
 
 function patch()
@@ -89,3 +90,25 @@ function isBootMeepleInStartingPosition()
         (0.50 < pos[3] and pos[3] < 0.52)
 end
 
+function configUI()
+    local xml = self.UI.getXmlTable()
+    local xmlConfig = nil
+    local xmlDefaults = xml[1]
+    for _, element in pairs(xml) do
+        if element["attributes"].id == "configPanel" then
+            xmlConfig = element
+            xmlConfig["attributes"].visibility = "None"
+            break
+        end
+    end
+
+    if xmlConfig ~= nil then
+        local glbXML = {
+            xmlDefaults,
+            xmlConfig
+        }
+        UI.setXmlTable(glbXML)
+        UI.setAttribute("configPanel", "visibility", "None")
+    end
+    --self.UI.setAttribute("configPanel", "visibility", "None")
+end

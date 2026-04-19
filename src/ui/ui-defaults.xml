@@ -1,6 +1,7 @@
 <Defaults>
     <!-- Layout styles -->
     <Panel
+        class="main-panel"
         height="350" 
         width="800" 
         scale=".1 .1 .1" 
@@ -53,5 +54,91 @@
     <Text
         class="applyText"
         fontSize="75"
+    />
+    <!-- Config panel style -->
+    <Panel
+        class="config-window" 
+        position="0 0 0" 
+        width="400" height="550" 
+        rectAlignment="MiddleCenter"
+        returnToOriginalPositionWhenReleased="false"
+        allowDragging="true"
+        color="#ebb96f"
+        outline="#404040"
+    />
+    <Panel
+        class="config-header" 
+        height="30" width="400" 
+        rectAlignment="UpperCenter" 
+        color="#dd890b" 
+        outline="#dd890b"
+    />
+    <Button 
+        class="config-header" 
+        width="25" height="25" 
+        rectAlignment="UpperRight" 
+        color="#eeeeee"
+    />
+    <Panel
+        class="config-footer" 
+        height="12" width="400" 
+        rectAlignment="LowerCenter" 
+        color="#dd890b" 
+        outline="#dd890b"
+    />
+    <Text
+        class="config-header"
+        color="white"
+        fontSize="25"
+        alignment="MiddleCenter"
+    />
+    <Button
+        class="config-footer"
+        minHeight="30"
+    />
+    <TableLayout
+        class="config"
+        columnWidths="300 100"
+        cellPadding="10"
+        height="400"
+        autoCalculateHeight="true"
+    />
+    <Cell
+        outline="#696969"
+        shadow="#696969"
+    />
+    <Text
+        class="config"
+        color="white"
+        fontSize="25"
+        alignment="MiddleLeft"
+    />
+    <Text
+        class="config-sub"
+        color="white"
+        fontSize="18"
+        alignment="MiddleLeft"
+        offsetXY="-20 0"
+    />
+    <Dropdown
+        class="config"
+        minWidth="80"
+    />
+    <Panel
+        class="config-toggle"
+    />
+    <Toggle
+        class="config"
+        toggleWidth="30"
+        toggleHeight="30"
+        alignment="MiddleCenter"
+        isOn="True"
+    />
+    <Toggle
+        class="config-sub"
+        toggleWidth="20"
+        toggleHeight="20"
+        alignment="MiddleCenter"
+        isOn="True"
     />
 </Defaults>
