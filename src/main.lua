@@ -231,23 +231,14 @@ function unpack_(do_setup)
     end
 
     if do_setup then
-        Wait.condition(setupEnemies, function()
-            check = (not deck_first.spawning and not deck_first.loading_custom)
-                and (not deck_enemy[1].spawning and not deck_enemy[1].loading_custom) 
-                and (not deck_enemy[2].spawning and not deck_enemy[2].loading_custom)
-                and (not deck_enemy[3].spawning and not deck_enemy[3].loading_custom)
-                and (not deck_summon[1].spawning and not deck_summon[1].loading_custom) 
-                and (not deck_summon[2].spawning and not deck_summon[2].loading_custom)
-                and (not deck_summon[3].spawning and not deck_summon[3].loading_custom)
-                and (not deck_elite[1].spawning and not deck_elite[1].loading_custom) 
-                and (not deck_elite[2].spawning and not deck_elite[2].loading_custom)
-                and (not deck_elite[3].spawning and not deck_elite[3].loading_custom)
-                and (not deck_boss[1].spawning and not deck_boss[1].loading_custom) 
-                and (not deck_boss[2].spawning and not deck_boss[2].loading_custom)
-                and (not deck_boss[3].spawning and not deck_boss[3].loading_custom)
-                and (not deck_boss[4].spawning and not deck_boss[4].loading_custom)
-            return check
-        end)
+        local decks = {
+            deck_first,
+            deck_enemy[1], deck_enemy[2], deck_enemy[3],
+            deck_summon[1], deck_summon[2], deck_summon[3],
+            deck_elite[1], deck_elite[2], deck_elite[3],
+            deck_boss[1], deck_boss[2], deck_boss[3], deck_boss[4]
+        }
+        whenReady(decks, setupEnemies)
     end
 end
 
