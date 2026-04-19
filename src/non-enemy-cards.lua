@@ -14,7 +14,7 @@ function unpackNonEnemyCards()
             smooth = false,
             position = {
                 x = pos[1] + 2.5 * (i % 6 - 2.5),
-                y = pos[2] + 2,
+                y = pos[2] + 3,
                 z = pos[3] - 3.5 * (math.floor(i / 6) - 2.5)
             },
             callback_function = function(o)
