@@ -1,9 +1,11 @@
 function unpackNonEnemyCards()
     local pos = self.getPosition()
-    local decks = {}
-    local standard_rotation = {0, 180, 0}
-    local i = 0
+    local std_rotation = {0, 180, 0}
 
+    local decksAndRotation = {}
+    local modDecks = {}
+
+    local i = 0
     for sts_guid, mod_guid in pairs(non_enemy_decks) do
         i = i + 1
         local sts_deck = getObjectFromGUID(sts_guid)
@@ -18,27 +20,20 @@ function unpackNonEnemyCards()
             callback_function = function(o)
                 o.setLock(true)
                 local sts_rot = sts_deck.getRotation()
-                sts_deck.setRotation(standard_rotation)
-                table.insert(decks, {sts_deck, o, sts_rot})
+                sts_deck.setRotation(std_rotation)
+                table.insert(decksAndRotation, {sts_deck, o, sts_rot})
+                table.insert(modDecks, o)
             end
         })
     end
 
     -- Wait for all objects to finish spawning before merging them into decks
-    Wait.condition(function()
-        for _, deck in pairs(decks) do
-            deck[2].setLock(false)
-            deck[1].putObject(deck[2])
-            deck[1].setRotation(deck[3])
+    whenReady(modDecks, function()
+        for _, deck in pairs(decksAndRotation) do
+            local sts_deck, mod_deck, sts_rot = unpack(deck)
+            mod_deck.setLock(false)
+            sts_deck.putObject(mod_deck)
+            sts_deck.setRotation(sts_rot)
         end
-    end, function()
-        local check = true
-        for _, deck in pairs(decks) do
-            if deck[2].spawning or deck[2].loading_custom then
-                check = false
-                break
-            end
-        end
-        return check
     end)
 end

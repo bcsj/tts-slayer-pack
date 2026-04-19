@@ -81,7 +81,7 @@ end
 function patch()
     if isGameStarted() then
         asc_check()
-        unpack()
+        unwrap()
         INITIALIZED = true
         return
     end
@@ -116,11 +116,11 @@ function asc_check()
     end
 end
 
-function unpack()
-    unpack_(true)
+function unwrap()
+    unwrap_(true)
 end
 
-function pack_()
+function wrap_()
     unlockAndPutFromGUID(self, first_enemy_deck_guid)
 
     for act = 1,3 do
@@ -131,7 +131,7 @@ function pack_()
     end
 end
 
-function unpack_(do_setup)
+function unwrap_(do_setup)
 
     -----------------------------------------------
     local deck_enemy = {}
