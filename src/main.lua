@@ -1,7 +1,9 @@
 require("tts-slayer-pack/src/debug")
+
 require("tts-slayer-pack/src/guids")
 require("tts-slayer-pack/src/util")
-require("tts-slayer-pack/src/ui")
+require("tts-slayer-pack/src/ui/ui")
+
 require("tts-slayer-pack/src/non-enemy-cards")
 
 require("tts-slayer-pack/src/enemies/setup")

@@ -1,4 +1,4 @@
-<Include src="tts-slayer-pack/src/ui-defaults.xml"/>
+<Include src="tts-slayer-pack/src/ui/ui-defaults.xml"/>
 
 <Text class="title">
     Silbo's
