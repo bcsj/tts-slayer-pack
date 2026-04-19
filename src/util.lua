@@ -36,8 +36,12 @@ function isInGame(character)
     return false
 end
 
+function when(condition, callback)
+    Wait.condition(callback, condition)
+end
+
 function whenReady(objects, callback)
-    Wait.condition(callback, isDoneSpawningOrLoading(objects))
+    when(isDoneSpawningOrLoading(objects), callback)
 end
 
 function isDoneSpawningOrLoading(objects)

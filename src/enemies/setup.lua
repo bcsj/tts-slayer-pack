@@ -18,6 +18,31 @@ function setupEnemies()
     mergeEnemyDecks()
 end
 
+function ascensionPatch()
+    local asc = getAscensionLevel()
+    if asc >= 1 then
+        sts_elite_deck_guid = sts_asc_guid[1]
+    end
+    if asc >= 7 then
+        sts_enemy_deck_guid = sts_asc_guid[2]
+    end
+    if asc >= 10 then
+        sts_boss_deck_guid = sts_asc_guid[4]
+        boss_deck_guid[1] = boss_asc_deck_guid[1]
+        boss_deck_guid[2] = boss_asc_deck_guid[2]
+        boss_deck_guid[3] = boss_asc_deck_guid[3]
+    end
+    if asc >= 11 then
+        boss_deck_guid[4] = boss_asc_deck_guid[4]
+    end
+    if asc >= 12 then
+        sts_elite_deck_guid = sts_asc_guid[3]
+        elite_deck_guid[1] = elite_asc_deck_guid[1]
+        elite_deck_guid[2] = elite_asc_deck_guid[2]
+        elite_deck_guid[3] = elite_asc_deck_guid[3]
+    end
+end
+
 function packEnemyDecks()
     unlockAndPutFromGUID(self, first_enemy_deck_guid)
 
