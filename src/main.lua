@@ -1,9 +1,12 @@
 require("tts-slayer-pack/src/debug")
 require("tts-slayer-pack/src/guids")
+require("tts-slayer-pack/src/util")
 require("tts-slayer-pack/src/ui")
 require("tts-slayer-pack/src/non-enemy-cards")
-require("tts-slayer-pack/src/enemy-cards")
-require("tts-slayer-pack/src/enemy-types")
+
+require("tts-slayer-pack/src/enemies/enemy-cards")
+require("tts-slayer-pack/src/enemies/enemy-types")
+require("tts-slayer-pack/src/enemies/enemy-intents")
 
 INITIALIZED = false
 
@@ -37,12 +40,9 @@ function onLoad(saveState)
     start the game, and after that do the 'additive load' of this mod.
 
     -------------------------------------------------------------------------------- ]]
-    local GameStarted = Global.getVar("GAME_STARTED")
-    if GameStarted ~= nil then
-        if GameStarted then
-            patch_()
-            return
-        end
+    if isGameStarted() then
+        patch_()
+        return
     end
 
     --[[ ------------------------------------------------------------------------------
@@ -74,22 +74,20 @@ function patch_()
 end
 
 function patch()
-    local check = Global.getVar("GAME_STARTED")
-    if check ~= nil then
-        if check then
-            asc_check()
-            unpack()
-            INITIALIZED = true
-            return
-        end
+    if isGameStarted() then
+        asc_check()
+        unpack()
+        INITIALIZED = true
+        return
     end
+
     msg = "Start the game like normal and press 'Setup' before the first encounter."
     rgb = {r=1, g=0, b=0}
     broadcastToAll(msg, rgb)
 end
 
 function asc_check()
-    local asc = Global.getVar("ASCENSION_LEVEL")
+    local asc = getAscensionLevel()
     if asc >= 1 then
         sts_elite_deck_guid = sts_asc_guid[1]
     end
@@ -118,23 +116,13 @@ function unpack()
 end
 
 function pack_()
-    local deck = getObjectFromGUID(first_enemy_deck_guid)
-    deck.setLock(false)
-    self.putObject(deck)
+    unlockAndPutFromGUID(self, first_enemy_deck_guid)
 
     for act = 1,3 do
-        deck = getObjectFromGUID(enemy_deck_guid[act])
-        deck.setLock(false)
-        self.putObject(deck)
-        deck = getObjectFromGUID(summon_deck_guid[act])
-        deck.setLock(false)
-        self.putObject(deck)
-        deck = getObjectFromGUID(elite_deck_guid[act])
-        deck.setLock(false)
-        self.putObject(deck)
-        deck = getObjectFromGUID(boss_deck_guid[act])
-        deck.setLock(false)
-        self.putObject(deck)
+        unlockAndPutFromGUID(self, enemy_deck_guid[act])
+        unlockAndPutFromGUID(self, summon_deck_guid[act])
+        unlockAndPutFromGUID(self, elite_deck_guid[act])
+        unlockAndPutFromGUID(self, boss_deck_guid[act])
     end
 end
 
@@ -222,7 +210,7 @@ function unpack_(do_setup)
     })
     deck_boss[4].setLock(true)
 
-    local asc = Global.getVar("ASCENSION_LEVEL")
+    local asc = Global.getVar("ASCENSION_LEVEL") or 0
     if asc >= 11 then
         deck_elite[4] = self.takeObject({
             guid = elite_deck_guid[4],
@@ -297,10 +285,7 @@ function setup()
     if ENEMY_REWARD_ASSOCIATION == nil then
         ENEMY_REWARD_ASSOCIATION = {}
     end
-    local ENEMY_INTENT_ASSOCIATION = Global.getTable("ENEMY_INTENT_ASSOCIATION")    
-    if ENEMY_INTENT_ASSOCIATION == nil then
-        ENEMY_INTENT_ASSOCIATION = {}
-    end
+    
     -----------------------------------------------
     local first_enemy_summon_table = {
         {},
@@ -850,226 +835,8 @@ function setup()
     Global.setTable("ENEMY_REWARD_ASSOCIATION", ENEMY_REWARD_ASSOCIATION)
 
 
-    -----------------------------------------------
-    -- INTENT INFORMATION - ENEMY
-    local first_enemy_intent_table = {
-        {-0.50, -0.50}, -- ok
-        {-0.85, -0.55}, -- ok
-        nil,
-        {-0.74, -0.41} -- ok
-    }
-    local enemy_intent_table = {
-        { -- Act I
-            {-0.99, -0.50}, -- ok
-            {-0.50, -0.40}, -- ok
-            nil,
-            {-0.83, -0.41}, -- ok
-            nil,
-            {-0.54, -0.35}, -- ok
-            {-0.74, -0.41}, -- ok
-            nil,
-            {-0.50, -0.40} -- ok
-        },
-        { -- Act II
-            nil,
-            nil,
-            {-0.72, -0.345}, --ok
-            nil,
-            {-0.84, -0.445}, --ok
-            nil, -- serntry knight (todo(?): maybe add two cubes in corner)
-            nil,
-            nil,
-            nil
-        },
-        { -- Act III 
-            {-0.845, -0.425}, --ok
-            {-0.85, -0.425}, --ok
-            nil,
-            {-0.92, -0.235},
-            nil,
-            nil,
-            nil
-        }
-    }
-  
-    local e_mul = {
-        {0, 1, 2, 4}, -- Goobert
-        {0, 1, 2, 3}, -- Imp, Shroom Horde
-        {1, 3, 5, 7}, -- Driftthought
-        {0, 2, 3, 5}, -- Goobert (asc 12)
-        {0, 1, 3, 4}, -- Imp (asc 12)
-        {1, 4, 7, 9} -- Driftthought (asc 12)
-    }
-    
-    local hp_skipdist_r = 0.33
-
-    local guard_shroom = {-1.01, 1.14 - (num_players - 1) * hp_skipdist_r}
-    if num_players > 1 and num_players <= 4 then
-        guard_shroom = {guard_shroom, {0.72, 1.50}}
-    elseif num_players > 4 then
-        guard_shroom = {guard_shroom, {0.72, 1.50 - 1 * hp_skipdist_r}}
-    end
-
-    local driftthought_asc12 = {-0.86, -0.425}
-    if num_players < 4 then
-        driftthought_asc12 = {driftthought_asc12, {-1.01, 1.14 - (num_players - 1) * hp_skipdist_r}, {0.72, 1.50 - e_mul[6][num_players] * 0.33}}
-    else
-        driftthought_asc12 = {driftthought_asc12, {-1.01, 1.14 - (num_players - 1) * hp_skipdist_r}, {0.72, 1.50}, {0.72, 1.50 - e_mul[6][num_players] * 0.33}}
-    end
-
-    local phantasm = {-1.01, 1.14 - (num_players - 1) * hp_skipdist_r}
-    if num_players > 2 then
-        phantasm = {phantasm, {0.72, 1.50}}
-    end
-    
-    local skipdist = 0.30
-
-    local summon_intent_table = {
-        { -- Act I
-            nil, 
-            nil, 
-            nil,
-            {{-0.52, -0.41}, {-1.01, 1.14 - (num_players - 1) * skipdist}, {0.72, 1.50 - e_mul[1][num_players] * hp_skipdist_r}}, -- Elite: Goobert
-            nil,
-            {{-0.55, -0.40}, {-1.01, 1.14 - (num_players - 1) * skipdist}, {0.72, 1.50 - e_mul[2][num_players] * hp_skipdist_r}}, -- Elite: Imp
-            nil, 
-            nil,
-            {{-1.01, -0.62}, {-1.01, 1.14 - (num_players - 1) * skipdist}, {0.72, 1.50 - e_mul[2][num_players] * hp_skipdist_r}}, -- Shroom Horde
-            {-0.37, -0.47}, -- ok
-            {-0.37, -0.47}, -- ok
-            guard_shroom,
-            guard_shroom,
-            guard_shroom,
-            {-0.37, -0.47}, -- ok
-            {-0.37, -0.47}, -- ok
-            {-0.37, -0.47}, -- ok
-            {-0.37, -0.47}, -- ok
-            {-0.37, -0.47}, -- ok
-            {-0.37, -0.47}, -- ok
-            {-0.37, -0.47}, -- ok
-            {-0.37, -0.47}, -- ok
-            {{-0.52, -0.41}, {-1.01, 1.14 - (num_players - 1) * skipdist}, {0.72, 1.50 - e_mul[4][num_players] * hp_skipdist_r}}, -- Elite: Goobert (asc 12)
-            {{-0.55, -0.40}, {-1.01, 1.14 - (num_players - 1) * skipdist}, {0.72, 1.50 - e_mul[5][num_players] * hp_skipdist_r}} -- Elite: Imp (asc 12)
-        },
-        { -- Act II
-            nil,
-            nil,
-            nil,
-            {{-0.86, -0.425}, {-1.01, 1.14 - (num_players - 1) * skipdist}, {0.72, 1.50 - e_mul[3][num_players] * 0.33}}, -- Elite: Driftthought
-            nil,
-            nil,
-            {-0.84, -0.445}, --ok
-            nil,
-            nil,
-            nil, nil, nil, nil, -- Amplifier (x4)
-            nil, nil, nil, nil, -- Amplifier (x4)
-            driftthought_asc12
-        },
-        { -- Act III 
-            nil,
-            nil,
-            nil,
-            nil,
-            nil,
-            phantasm, -- Elite enemy
-            phantasm, -- Elite enemy
-            {-0.92, -0.235}
-        }
-    }
-
-    local elite_intent_table = {
-        { -- Act I
-            {-0.48, -0.41}, --ok
-            {-0.55, -0.40}, --ok
-            nil, --ok
-            {-0.87, -0.40}  --ok
-        },
-        { -- Act II
-            {-0.96, -0.56}, --ok
-            {-0.96, -0.61}, --ok
-            {-0.62, -0.32}  --ok
-        },
-        { -- Act III
-            {-0.89, -0.31}, --ok
-            nil, --ok
-            {-0.77, -0.55}  --ok
-        }
-    }
-
-    local shroomhive_intent = {}
-    for i = 1, 3 do
-        local skip = 0.45
-        shroomhive_intent[i] = {-2.385 + (i - 1) * skip, -1.942}
-    end
-
-    local boss_intent_table = {
-        { -- Act I
-            {-2.095, 0.45}, -- Deepcrawl Worm
-            shroomhive_intent, -- Shroomhive (cobes for the tracking)
-            {-2.095, 0.701} -- Webmother
-        },
-        { -- Act II
-            {-2.095, 0.805}, -- Serpent King
-            {-2.095, 0.708}, -- Gremlinator
-            {-2.095, 0.928}  -- The Enlightened
-        },
-        { -- Act III 
-            {-2.095, 0.892}, -- Clayform
-            {-2.095, 0.898}, -- Doomgazer
-            {-2.095, 0.534}  -- Frost Wraith
-        }
-    }
-
-    -----------------------------------------------
-    -- INTENT INFORMATION - ENEMY
-    
-    do
-        local deck = getObjectFromGUID(first_enemy_deck_guid)
-        local content = deck.getObjects()
-
-        for i, v in ipairs(content) do
-            ENEMY_INTENT_ASSOCIATION[v.guid] = first_enemy_intent_table[i]
-        end
-    end
-
-    for act = 1, 3 do
-        local deck = getObjectFromGUID(enemy_deck_guid[act])
-        local content = deck.getObjects()
-
-        for i, v in ipairs(content) do
-            ENEMY_INTENT_ASSOCIATION[v.guid] = enemy_intent_table[act][i]
-        end
-    end
-    
-    for act = 1, 3 do
-        local deck = getObjectFromGUID(summon_deck_guid[act])
-        local content = deck.getObjects()
-
-        for i, v in ipairs(content) do
-            ENEMY_INTENT_ASSOCIATION[v.guid] = summon_intent_table[act][i]
-        end
-    end
-    
-    for act = 1, 3 do
-        local deck = getObjectFromGUID(elite_deck_guid[act])
-        local content = deck.getObjects()
-
-        for i, v in ipairs(content) do
-            ENEMY_INTENT_ASSOCIATION[v.guid] = elite_intent_table[act][i]
-        end
-    end
-
-    for act = 1, 3 do
-        local deck = getObjectFromGUID(boss_deck_guid[act])
-        local content = deck.getObjects()
-
-        for i, v in ipairs(content) do
-            ENEMY_INTENT_ASSOCIATION[v.guid] = boss_intent_table[act][i]
-        end
-    end
-
-    Global.setTable("ENEMY_INTENT_ASSOCIATION", ENEMY_INTENT_ASSOCIATION)
-
+ 
+    setupEnemyIntents()
 
     setupEnemyTypes()
 
