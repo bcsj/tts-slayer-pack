@@ -65,17 +65,6 @@ function onLoad(saveState)
     -----------------------------------------------------------------------------------
 end
 
-function isBootMeepleInStartingPosition()
-    local boot_meeple = getObjectFromGUID("d4e0e6")
-    if boot_meeple == nil then
-        return false
-    end
-    local pos = boot_meeple.getPosition()
-    return (-1.35 < pos[1] and pos[1] < -1.33) and 
-        (1.05 < pos[2] and pos[2] < 1.07) and
-        (0.50 < pos[3] and pos[3] < 0.52)
-end
-
 function patch()
     if withEnemies() and isGameStarted() then
         -- Update guids based on ascension level
@@ -95,5 +84,14 @@ function putAwayBox()
     self.setPositionSmooth(Vector(-17, 7, 31), false, false)
 end
 
-
+function isBootMeepleInStartingPosition()
+    local boot_meeple = getObjectFromGUID("d4e0e6")
+    if boot_meeple == nil then
+        return false
+    end
+    local pos = boot_meeple.getPosition()
+    return (-1.35 < pos[1] and pos[1] < -1.33) and 
+        (1.05 < pos[2] and pos[2] < 1.07) and
+        (0.50 < pos[3] and pos[3] < 0.52)
+end
 
