@@ -25,3 +25,13 @@ function unlockAndPutFromGUID(container, guid)
     obj.setLock(false)
     container.putObject(obj)
 end
+
+function isInGame(character)
+    local player_to_character = Global.getTable("PLAYER_TO_CHARACTER")
+    for _, v in pairs(player_to_character) do
+        if v == character then
+            return true
+        end
+    end
+    return false
+end

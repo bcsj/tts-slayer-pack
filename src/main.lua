@@ -9,6 +9,8 @@ require("tts-slayer-pack/src/enemies/enemy-types")
 require("tts-slayer-pack/src/enemies/enemy-intents")
 require("tts-slayer-pack/src/enemies/enemy-rewards")
 require("tts-slayer-pack/src/enemies/enemy-hp")
+require("tts-slayer-pack/src/enemies/enemy-summons")
+require("tts-slayer-pack/src/enemies/enemy-poison")
 
 INITIALIZED = false
 
@@ -249,270 +251,21 @@ function unpack_(do_setup)
 end
 
 function setup()
-    
-    
     ---------------------------------------------------------------
-    local PLAYER_TO_CHARACTER = Global.getTable("PLAYER_TO_CHARACTER")
-    -- Get out some poison tokens if Silent isn't already in the game
-    local isSilent = false
-    for k, v in pairs(PLAYER_TO_CHARACTER) do
-        if v == "Silent" then
-            isSilent = true
-        end
-    end
-
-    if not isSilent then
-        local silent_bag = getObjectFromGUID(sts_silent_bag_guid)
-        local xpos = {17.25, 17.33, 17.41}
-        local zpos = {3.24, 3.16, 3.24}
-        for i = 1, 3 do
-            silent_bag.takeObject({
-                guid = sts_silent_poison_guids[i],
-                position = {xpos[i], 1.05 + (i-1) * 0.15, zpos[i]},
-                rotation = {0, 180, 0}
-            })
-        end
+    -- One of the enemies uses Silent's poison tokens
+    -- so if Silent is not in the game, we bring them
+    -- out for convenience.
+    if not isInGame("Silent") then
+        getPoisonTokens()
     end
 
     -----------------------------------------------
-    local SUMMON_ASSOCIATION = Global.getTable("SUMMON_ASSOCIATION")
-    if SUMMON_ASSOCIATION == nil then
-        SUMMON_ASSOCIATION = {}
-    end
-    
-    -----------------------------------------------
-    local first_enemy_summon_table = {
-        {},
-        {},
-        {},
-        {{1, 2}}
-    }
-    local enemy_summon_table = {
-        { -- Act I
-            {},                   -- Bug Buddies (new)
-            {{10, 11}, {10, 11}}, -- Dungwrecker
-            {{3}},                -- Ghoul
-            {{7}},                -- Glamourshroom
-            {{5}},                -- Kobold (new)
-            {},                   -- Mimic
-            {{1, 2}, {1, 2}},     -- Mufflin
-            {},                   -- Reptar
-            {{8}}                 -- Tremor
-        },
-        { -- Act II
-            {},                   -- Alchemist
-            {},                   -- Artificial Fiend (new)
-            {},                   -- Assassin
-            {{1, 2}, {1, 2}},     -- Keeper
-            {{3}, {7}},           -- Scoundrel (new)
-            {{8}},                -- Sentry Knight
-            {},                   -- Splinterspell
-            {{5, 6}, {5, 6}},     -- Trash Colletor
-            {{9}}                 -- Trickster
-        },
-        { -- Act III 
-            {{3}},                -- Bloodroot
-            {{1, 2}, {1, 2}},     -- Jellyfright
-            {{4, 5}, {4, 5}},     -- Nautilorian
-            {{8}},                -- Prismshade
-            {},                   -- Twistbane
-            {},                   -- Voidborn (new)
-            {}                    -- Wrathgazer
-        }
-    }
-
-    local asc = Global.getVar("ASCENSION_LEVEL")
-
-    local goobert_summon = {4}
-    local imp_summon = {6}
-    local driftthought_summon = {4}
-
-    if asc >= 12 then
-        goobert_summon = {23}
-        imp_summon = {24}
-        driftthought_summon = {18}
-    end
-
-    local elite_summon_table = {
-        { -- Act I
-            {goobert_summon},   -- Goobert
-            {imp_summon},       -- Imp
-            {},                 -- Muncher
-            {{9}}               -- Shroomboss
-        },
-        { -- Act II
-            {},                 -- Abomination
-            {},                 -- Dreadmask
-            {driftthought_summon} -- Driftthought
-        },
-        { -- Act III
-            {{6}, {7}},         -- Abyss Shriek
-            {},                 -- Glimmerwing (new)
-            {}                  -- Netherflame
-        }
-    }
-
-    local boss_summon_table = {
-        { -- Act I
-            {},                   -- Deepcrawl Worm 
-            {
-                {12, 13, 14}, 
-                {12, 13, 14}, 
-                {12, 13, 14}
-            },                    -- Shroomhive
-            {
-                {15, 16, 17, 18, 19, 20, 21, 22}
-            },                    -- Webmother
-        },
-        { -- Act II
-            {},                   -- Serpent King
-            {
-                {10, 11, 12, 13, 14, 15, 16, 17}
-            },                    -- Gremlinator
-            {}                    -- The Enlightened
-        },
-        { -- Act III
-            {
-                {13, 14, 15, 16, 17, 18, 19, 20}
-            },                    -- Clayform
-            {},                   -- Doomgazer
-            {{9, 10, 11, 12}}     -- Frost Wraith
-        }
-    }
-
-    -----------------------------------------------
-    -- PAIR INFORMATION - ENEMY
-
-    do
-        local deck_summon = getObjectFromGUID(summon_deck_guid[1])
-        local content_summon = deck_summon.getObjects()
-
-        local deck_first_enemy = getObjectFromGUID(first_enemy_deck_guid)
-        local content_first_enemy = deck_first_enemy.getObjects()
-
-        for i, v in ipairs(content_first_enemy) do
-            local list = {}
-            for k = 1, #first_enemy_summon_table[i] do
-                local sublist = {}
-                for j = 1, #first_enemy_summon_table[i][k] do
-                    sublist[j] = content_summon[first_enemy_summon_table[i][k][j]].guid
-                end
-                list[k] = sublist
-            end
-            if type(next(list)) == "nil" then
-                -- nothing here
-            else
-                SUMMON_ASSOCIATION[v.guid] = {}
-                SUMMON_ASSOCIATION[v.guid]["Summons"] = list
-                SUMMON_ASSOCIATION[v.guid]["Boss Summons"] = {}
-            end
-        end
-    end
-
-    for act = 1, 3 do
-        local deck_summon = getObjectFromGUID(summon_deck_guid[act])
-        local content_summon = deck_summon.getObjects()
-
-        local deck_enemy = getObjectFromGUID(enemy_deck_guid[act])
-        local content_enemy = deck_enemy.getObjects()
-
-        for i, v in ipairs(content_enemy) do
-            local list = {}
-            for k = 1, #enemy_summon_table[act][i] do
-                local sublist = {}
-                for j = 1, #enemy_summon_table[act][i][k] do
-                    sublist[j] = content_summon[enemy_summon_table[act][i][k][j]].guid
-                end
-                list[k] = sublist
-            end
-            if type(next(list)) == "nil" then
-                -- nothing here
-            else
-                SUMMON_ASSOCIATION[v.guid] = {}
-                SUMMON_ASSOCIATION[v.guid]["Summons"] = list
-                SUMMON_ASSOCIATION[v.guid]["Boss Summons"] = {}
-            end
-        end
-    end
-    
-    -----------------------------------------------
-    -- PAIR INFORMATION - ELITE
-    for act = 1, 3 do
-        local deck_summon = getObjectFromGUID(summon_deck_guid[act])
-        local content_summon = deck_summon.getObjects()
-
-        local deck_elite = getObjectFromGUID(elite_deck_guid[act])
-        local content_elite = deck_elite.getObjects()
-
-        for i, v in ipairs(content_elite) do
-            local list = {}
-            for k = 1, #elite_summon_table[act][i] do
-                local sublist = {}
-                for j = 1, #elite_summon_table[act][i][k] do
-                    sublist[j] = content_summon[elite_summon_table[act][i][k][j]].guid
-                end
-                list[k] = sublist
-            end
-            if type(next(list)) == "nil" then
-                -- nothing here
-            else
-                SUMMON_ASSOCIATION[v.guid] = {}
-                SUMMON_ASSOCIATION[v.guid]["Summons"] = list
-                SUMMON_ASSOCIATION[v.guid]["Boss Summons"] = {}
-                SUMMON_ASSOCIATION[v.guid]["Flavor"] = {}
-                SUMMON_ASSOCIATION[v.guid]["Flavor"]["Per Player"] = 1 + #list
-                SUMMON_ASSOCIATION[v.guid]["Flavor"]["Include Elite"] = true
-                SUMMON_ASSOCIATION[v.guid]["Flavor"]["Type"] = "Alternating"
-            end
-        end
-    end
-
-    -----------------------------------------------
-    -- PAIR INFORMATION - BOSS
-    for act = 1, 3 do
-        local deck_summon = getObjectFromGUID(summon_deck_guid[act])
-        local content_summon = deck_summon.getObjects()
-
-        local deck_boss = getObjectFromGUID(boss_deck_guid[act])
-        local content_boss = deck_boss.getObjects()
-
-        for i, v in ipairs(content_boss) do
-            local list = {}
-            for k = 1, #boss_summon_table[act][i] do
-                local sublist = {}
-                for j = 1, #boss_summon_table[act][i][k] do
-                    sublist[j] = content_summon[boss_summon_table[act][i][k][j]].guid
-                end
-                list[k] = sublist
-            end
-            if type(next(list)) == "nil" then
-                -- nothing here
-            else
-                SUMMON_ASSOCIATION[v.guid] = {}
-                SUMMON_ASSOCIATION[v.guid]["Summons"] = list
-                SUMMON_ASSOCIATION[v.guid]["Boss Summons"] = {}
-                SUMMON_ASSOCIATION[v.guid]["Flavor"] = {}
-                -- TODO: Broken for Frost Wraith? check ...
-                if #list == 1 or #list == 2 then
-                    SUMMON_ASSOCIATION[v.guid]["Flavor"]["Per Player"] = 2
-                elseif #list == 3 then
-                    SUMMON_ASSOCIATION[v.guid]["Flavor"]["Per Player"] = 3
-                end
-                SUMMON_ASSOCIATION[v.guid]["Flavor"]["Type"] = "Random"
-            end
-        end
-    end
-
-    Global.setTable("SUMMON_ASSOCIATION", SUMMON_ASSOCIATION)
-  
+    setupEnemySummons()
     setupEnemyHP()
-
     setupEnemyRewards()
- 
     setupEnemyIntents()
-
     setupEnemyTypes()
 
+    -----------------------------------------------
     mergeEnemyDecks()
-
 end
