@@ -1,0 +1,25 @@
+<Include src="tts-slayer-pack/src/ui/ui-defaults.xml"/>
+
+<Text class="title">
+    Silbo's
+    Slayer Pack
+</Text>
+
+<Panel>
+    <VerticalLayout>
+        <HorizontalLayout>
+            <VerticalLayout>
+                <Text class="option">Enemies</Text>
+                <Text class="option">Cards</Text>
+            </VerticalLayout>
+            <VerticalLayout>
+                <Toggle class="checkbox" id="enemiesToggle"/>
+                <Toggle class="checkbox" id="cardsToggle"/>
+            </VerticalLayout>
+        </HorizontalLayout>
+        <Button class="apply" id="applyButton" onClick="applyClicked">
+            <Text class="applyText" id="applyButtonText">Apply</Text>
+        </Button>
+    </VerticalLayout>
+</Panel>
+

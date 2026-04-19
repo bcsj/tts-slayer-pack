@@ -22,9 +22,9 @@ function onChat(msg, user)
             end
 
             if cmd == "unpack" then
-                unpack_(false)
+                unpackEnemyDecks()
             elseif cmd == "pack" then
-                pack_()
+                packEnemyDecks()
             elseif cmd == "debug" then
                 if DEBUG then
                     DEBUG = false

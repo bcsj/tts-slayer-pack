@@ -1,0 +1,8 @@
+require("tts-slayer-pack/src/enemies/setup")
+require("tts-slayer-pack/src/enemies/enemy-cards")
+require("tts-slayer-pack/src/enemies/enemy-types")
+require("tts-slayer-pack/src/enemies/enemy-intents")
+require("tts-slayer-pack/src/enemies/enemy-rewards")
+require("tts-slayer-pack/src/enemies/enemy-hp")
+require("tts-slayer-pack/src/enemies/enemy-summons")
+require("tts-slayer-pack/src/enemies/enemy-poison")
