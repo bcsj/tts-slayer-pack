@@ -1,7 +1,7 @@
 require("tts-slayer-pack/src/debug")
 require("tts-slayer-pack/src/guids")
 require("tts-slayer-pack/src/ui")
-require("tts-slayer-pack/src/character_cards")
+require("tts-slayer-pack/src/non-enemy-cards")
 
 INITIALIZED = false
 
