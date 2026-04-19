@@ -1,10 +1,10 @@
-function unpackCharacterCards()
+function unpackNonEnemyCards()
     local pos = self.getPosition()
     local decks = {}
     local standard_rotation = {0, 180, 0}
     local i = 0
 
-    for sts_guid, mod_guid in pairs(character_card_decks) do
+    for sts_guid, mod_guid in pairs(non_enemy_decks) do
         i = i + 1
         local sts_deck = getObjectFromGUID(sts_guid)
         self.takeObject({

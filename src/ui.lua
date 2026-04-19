@@ -6,7 +6,7 @@ TOGGLE_NON_ENEMY = true
 -- Callback for the apply button
 function applyClicked(player, clickType, xmlId)
     if withNonEnemies() then
-        unpackCharacterCards()
+        unpackNonEnemyCards()
     end
     disableUI()
 end

@@ -113,7 +113,7 @@ boss_asc_deck_guid = {
 
 -- Correlate base game card deck GUIDs to mod GUIDs.
 -- Key = base game deck GUID, value = mod deck GUID to merge into it.
-character_card_decks = {
+non_enemy_decks = {
     -- ironclad
     ['6355da'] = '743dbf', -- reward deck
     ['9a4007'] = 'c88204', -- rare deck
