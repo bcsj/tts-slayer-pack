@@ -4,16 +4,8 @@ require("tts-slayer-pack/src/guids")
 require("tts-slayer-pack/src/util")
 require("tts-slayer-pack/src/ui/ui")
 
-require("tts-slayer-pack/src/non-enemy-cards")
-
-require("tts-slayer-pack/src/enemies/setup")
-require("tts-slayer-pack/src/enemies/enemy-cards")
-require("tts-slayer-pack/src/enemies/enemy-types")
-require("tts-slayer-pack/src/enemies/enemy-intents")
-require("tts-slayer-pack/src/enemies/enemy-rewards")
-require("tts-slayer-pack/src/enemies/enemy-hp")
-require("tts-slayer-pack/src/enemies/enemy-summons")
-require("tts-slayer-pack/src/enemies/enemy-poison")
+require("tts-slayer-pack/src/non-enemies/imports")
+require("tts-slayer-pack/src/enemies/imports")
 
 INITIALIZED = false
 
@@ -76,7 +68,6 @@ function patch()
         whenReady(decks, setupEnemies)
         -- Set initialized to true in case of saves
         INITIALIZED = true
-        return
     end
 
     putAwayBox()    
@@ -84,6 +75,7 @@ end
 
 function putAwayBox()
     self.setPositionSmooth(Vector(-17, 7, 31), false, false)
+    self.setLock(false)
 end
 
 function isBootMeepleInStartingPosition()
