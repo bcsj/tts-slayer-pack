@@ -113,26 +113,38 @@ boss_asc_deck_guid = {
 
 -- Correlate base game card deck GUIDs to mod GUIDs.
 -- Key = base game deck GUID, value = mod deck GUID to merge into it.
+
+IRONCLAD_REWARD_DECK_GUID = "6355da"
+IRONCLAD_REWARD_DECK_UPG_GUID = "9a4007"
+SILENT_REWARD_DECK_GUID = "db37c0"
+SILENT_REWARD_DECK_UPG_GUID = "0b9dcc"
+DEFECT_REWARD_DECK_GUID = "8cf2ec"
+DEFECT_REWARD_DECK_UPG_GUID = "e0769d"
+WATCHER_REWARD_DECK_GUID = "d31ff8"
+WATCHER_REWARD_DECK_UPG_GUID = "2da0ab"
+COLORLESS_REWARD_DECK_GUID = "80fcb6"
+COLORLESS_REWARD_DECK_UPG_GUID = "7f7cc9"
+
 non_enemy_decks = {
     -- ironclad
     ['6355da'] = '743dbf', -- reward deck
-    ['9a4007'] = 'c88204', -- rare deck
-    ['2b8379'] = '89a14a', -- reward deck upg
+    ['9a4007'] = 'c88204', -- reward deck upg
+    ['2b8379'] = '89a14a', -- rare deck
     ['c16bb3'] = '4dce01', -- rare deck upg
     -- silent
     ['db37c0'] = '3dcc9f', -- reward deck
-    ['0b9dcc'] = 'aea464', -- rare deck
-    ['1641bf'] = 'a840ac', -- reward deck upg
+    ['0b9dcc'] = 'aea464', -- reward deck upg
+    ['1641bf'] = 'a840ac', -- rare deck
     ['cdb9a0'] = '89a066', -- rare deck upg
     -- defect
     ['8cf2ec'] = 'c4ec57', -- reward deck
-    ['e0769d'] = '4056b2', -- rare deck
-    ['ba6c5b'] = 'a41fe0', -- reward deck upg
+    ['e0769d'] = '4056b2', -- reward deck upg
+    ['ba6c5b'] = 'a41fe0', -- rare deck
     ['07ecb9'] = 'd24f88', -- rare deck upg
     -- watcher
     ['d31ff8'] = '01bf76', -- reward deck
-    ['2da0ab'] = '49e711', -- rare deck
-    ['dc3185'] = '49435e', -- reward deck upg
+    ['2da0ab'] = '49e711', -- reward deck upg
+    ['dc3185'] = '49435e', -- rare deck
     ['a15719'] = '537f0d', -- rare deck upg
     -- other
     ['80fcb6'] = 'aff298', -- colorless deck
@@ -141,4 +153,9 @@ non_enemy_decks = {
     ['d6b384'] = 'd0e632', -- boss relic deck
     ['0f8234'] = 'cccf0b', -- relic deck
     ['72a869'] = '054422', -- potion deck
+    ['49d436'] = '7a9b9e', -- event deck, act I
+    ['335d47'] = '078acb', -- event deck, act II
+    ['770899'] = '0d4255' -- event deck, act III
 }
+
+non_enemy_upg_card = 'c452c0'

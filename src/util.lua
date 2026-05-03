@@ -56,3 +56,28 @@ function isDoneSpawningOrLoading(objects)
         return check
     end
 end
+
+-- Generates a grid of positions for cards to be placed in
+-- centered around the given position. Config can specify
+-- the number of columns and rows in the grid (default 4x4).
+-- Index is the 0-based index of the card to be placed, 
+-- counting left to right, top to bottom.
+function cardGridGenerator(pos, config)
+    return function(index)
+        local cols = config.cols or 4
+        local rows = config.rows or 4
+        local y_offset = config.y_offset or 0
+
+        local x_step = 2.5
+        local z_step = 3.5
+        
+        local x_offset = (cols-1) / 2
+        local z_offset = (rows-1) / 2
+
+        return {
+            x = pos[1] + x_step * (index % cols - x_offset),
+            y = pos[2] + y_offset,
+            z = pos[3] - z_step * (math.floor(index / cols) - z_offset)
+        }
+    end
+end
