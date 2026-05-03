@@ -26,7 +26,6 @@ function unpackNonEnemyCards()
             end
         })
     end
-
     -- Wait for all objects to finish spawning before merging them into decks
     whenReady(modDecks, function()
         for _, deck in pairs(decksAndRotation) do
@@ -36,4 +35,6 @@ function unpackNonEnemyCards()
             sts_deck.setRotation(sts_rot)
         end
     end)
+
+    shuffleInUpgradeCards(2)
 end
