@@ -5,6 +5,12 @@ function unpackNonEnemyCards()
     local decksAndRotation = {}
     local modDecks = {}
 
+    local grid = cardGridGenerator(pos, {
+        cols = 6, 
+        rows = 6, 
+        y_offset = 3
+    })
+
     local i = 0
     for sts_guid, mod_guid in pairs(non_enemy_decks) do
         i = i + 1
@@ -12,11 +18,7 @@ function unpackNonEnemyCards()
         self.takeObject({
             guid = mod_guid,
             smooth = false,
-            position = {
-                x = pos[1] + 2.5 * (i % 6 - 2.5),
-                y = pos[2] + 3,
-                z = pos[3] - 3.5 * (math.floor(i / 6) - 2.5)
-            },
+            position = grid(i),
             callback_function = function(o)
                 o.setLock(true)
                 local sts_rot = sts_deck.getRotation()

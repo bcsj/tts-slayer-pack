@@ -20,19 +20,19 @@ function shuffleInUpgradeCards(n)
         local deck_clones_map = {}
 
         -- Spawn n clones of the upgrade card for each target deck
+        local grid = cardGridGenerator(pos, {
+            cols = 4, 
+            rows = 3, 
+            y_offset = 0.5
+        })
+
         local c = 0
         for _, deck_guid in pairs(target_decks) do
             local deck = getObjectFromGUID(deck_guid)
             local deck_clones = {}
             for i = 1, n do
-                
-                local new_pos = {
-                    x = pos[1] + 2.5 * (c % 4 - 1.5),
-                    y = pos[2] + 0.5,
-                    z = pos[3] - 3.5 * (math.floor(c / 4) - 1.5)
-                }
                 local upgCardClone = upgCard.clone()
-                upgCardClone.setPosition(new_pos)
+                upgCardClone.setPosition(grid(c))
                 table.insert(clones, upgCardClone)
                 table.insert(deck_clones, upgCardClone.getGUID())
                 c = c + 1
