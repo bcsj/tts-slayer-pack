@@ -154,8 +154,8 @@ non_enemy_decks = {
     ['0f8234'] = 'cccf0b', -- relic deck
     ['72a869'] = '054422', -- potion deck
     ['49d436'] = '7a9b9e', -- event deck, act I
-    ['335d47'] = '078acb', -- event deck, act II
-    ['770899'] = '0d4255' -- event deck, act III
+    ['770899'] = '078acb', -- event deck, act II
+    ['335d47'] = '0d4255'  -- event deck, act III
 }
 
 non_enemy_upg_card = 'c452c0'
