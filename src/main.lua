@@ -52,10 +52,20 @@ function onLoad(saveState)
     data tables with the information for the new monsters.
 
     -------------------------------------------------------------------------------- ]]
-    local boot_meeple = getObjectFromGUID("d4e0e6")
-    if boot_meeple ~= nil then
-        when(isBootMeepleInStartingPosition, patch)
+    local meeple
+    if isCoreGameMod() then
+        -- boot_meeple    
+        meeple = getObjectFromGUID("d4e0e6")
+    elseif isDownfallGameMod() then
+        -- hat_meeple
+        meeple = getObjectFromGUID("668988")
     end
+    if meeple ~= nil then
+        when(function() 
+            return isMeepleInStartingPosition(meeple)
+        end, patch)
+    end
+    
     -----------------------------------------------------------------------------------
 end
 
@@ -78,12 +88,11 @@ function putAwayBox()
     self.setLock(false)
 end
 
-function isBootMeepleInStartingPosition()
-    local boot_meeple = getObjectFromGUID("d4e0e6")
-    if boot_meeple == nil then
+function isMeepleInStartingPosition(meeple)
+    if meeple == nil then
         return false
     end
-    local pos = boot_meeple.getPosition()
+    local pos = meeple.getPosition()
     return (-1.35 < pos[1] and pos[1] < -1.33) and 
         (1.05 < pos[2] and pos[2] < 1.07) and
         (0.50 < pos[3] and pos[3] < 0.52)
