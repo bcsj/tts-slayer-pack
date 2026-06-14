@@ -96,7 +96,7 @@ function isMeepleInStartingPosition(meeple)
     end
     local pos = meeple.getPosition()
     return (-1.35 < pos[1] and pos[1] < -1.33) and 
-        (1.05 < pos[2] and pos[2] < 1.07) and
+        (1.05 < pos[2] and pos[2] < 1.50) and
         (0.50 < pos[3] and pos[3] < 0.52)
 end
 
