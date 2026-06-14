@@ -5,6 +5,8 @@ function setupEnemies()
     -- out for convenience.
     if not isInGame("Silent") and isCoreGameMod() then
         getPoisonTokens()
+    else 
+        createPoisonTokens()
     end
 
     -----------------------------------------------
