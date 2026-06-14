@@ -7,6 +7,8 @@ require("tts-slayer-pack/src/ui/ui")
 require("tts-slayer-pack/src/non-enemies/imports")
 require("tts-slayer-pack/src/enemies/imports")
 
+require("tts-slayer-pack/src/detect-mod-version")
+
 INITIALIZED = false
 
 function onSave()
