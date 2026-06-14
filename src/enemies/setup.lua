@@ -3,7 +3,7 @@ function setupEnemies()
     -- One of the enemies uses Silent's poison tokens
     -- so if Silent is not in the game, we bring them
     -- out for convenience.
-    if not isInGame("Silent") then
+    if not isInGame("Silent") and isCoreGameMod() then
         getPoisonTokens()
     end
 
