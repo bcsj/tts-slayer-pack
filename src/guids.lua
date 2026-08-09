@@ -125,7 +125,7 @@ WATCHER_REWARD_DECK_UPG_GUID = "2da0ab"
 COLORLESS_REWARD_DECK_GUID = "80fcb6"
 COLORLESS_REWARD_DECK_UPG_GUID = "7f7cc9"
 
-non_enemy_decks = {
+character_decks = {
     -- ironclad
     ['6355da'] = '743dbf', -- reward deck
     ['9a4007'] = 'c88204', -- reward deck upg
@@ -146,6 +146,9 @@ non_enemy_decks = {
     ['2da0ab'] = '49e711', -- reward deck upg
     ['dc3185'] = '49435e', -- rare deck
     ['a15719'] = '537f0d', -- rare deck upg
+}
+
+other_decks = {
     -- other
     ['80fcb6'] = 'aff298', -- colorless deck
     ['7f7cc9'] = 'f4ce1a', -- colorless upgrade deck

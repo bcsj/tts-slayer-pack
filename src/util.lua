@@ -57,6 +57,12 @@ function isDoneSpawningOrLoading(objects)
     end
 end
 
+function concatTables(out, tbl)
+    for k, v in pairs(tbl) do
+        out[k] = v
+    end
+end
+
 -- Generates a grid of positions for cards to be placed in
 -- centered around the given position. Config can specify
 -- the number of columns and rows in the grid (default 4x4).

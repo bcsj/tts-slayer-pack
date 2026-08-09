@@ -11,6 +11,12 @@ function unpackNonEnemyCards()
         y_offset = 3
     })
 
+    local non_enemy_decks = other_decks
+    if isCoreGameMod() then
+        -- The character decks are only relevant in core mod
+        concatTables(non_enemy_decks, character_decks)
+    end
+
     local i = 0
     for sts_guid, mod_guid in pairs(non_enemy_decks) do
         i = i + 1
