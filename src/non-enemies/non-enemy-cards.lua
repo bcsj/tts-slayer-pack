@@ -14,7 +14,7 @@ function unpackNonEnemyCards()
     local non_enemy_decks = other_decks
     if isCoreGameMod() then
         -- The character decks are only relevant in core mod
-        non_enemy_decks = concatTables(non_enemy_decks, character_decks)
+        concatTables(non_enemy_decks, character_decks)
     end
 
     local i = 0
