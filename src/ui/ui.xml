@@ -5,7 +5,7 @@
     Slayer Pack
 </Text>
 
-<Panel>
+<Panel class="main-panel">
     <VerticalLayout>
         <HorizontalLayout>
             <VerticalLayout>
@@ -23,3 +23,142 @@
     </VerticalLayout>
 </Panel>
 
+<Panel id="configPanel" class="config-window" visibility="Hidden">
+    <Panel class="config-header" />
+    <Panel class="config-footer" />
+    <Button id="closeButton"
+      class="config-header"
+      color="#990000"
+      textColor="#FFFFFF"
+      text="×"
+      offsetXY="-2.5 -2.5"
+      onClick="close"/>
+    <Button id="closeButton"
+      class="config-header"
+      color="#009900"
+      textColor="#FFFFFF"
+      text="✓"
+      offsetXY="-30.5 -2.5"
+      onClick="close"/>
+    <VerticalLayout spacing="10">
+        <Text class="config-header">Slayer Pack Config</Text>
+        <TableLayout class="config"  rowBackgroundColor="#777777">
+            <Row preferredHeight="60">
+                <Cell>
+                    <Text class="config">Enemies</Text>
+                    <Dropdown class="config">
+                        <Option>Add on</Option>
+                        <Option>Replace</Option>
+                    </Dropdown>
+                </Cell>
+                <Cell>
+                    <Panel class="config-toggle" >
+                        <Toggle class="config" />
+                    </Panel>
+                </Cell>
+            </Row>
+            <Row preferredHeight="60" >
+                <Cell>
+                    <Text class="config">Cards</Text>
+                </Cell>
+                <Cell>
+                    <Panel class="config-toggle" >
+                        <Toggle class="config"/>
+                    </Panel>
+                </Cell>
+            </Row>
+        </TableLayout>
+        <TableLayout class="config" rowBackgroundColor="#999999">
+            <Row preferredHeight="40">
+                <Cell>
+                    <Text class="config-sub">Ironclad</Text>
+                </Cell>
+                <Cell>
+                    <Panel class="config-toggle" >
+                        <Toggle class="config-sub"/>
+                    </Panel>
+                </Cell>
+            </Row>
+            <Row preferredHeight="40">
+                <Cell>
+                    <Text class="config-sub">Silent</Text>
+                </Cell>
+                <Cell>
+                    <Panel class="config-toggle" >
+                        <Toggle class="config-sub"/>
+                    </Panel>
+                </Cell>
+            </Row>
+            <Row preferredHeight="40">
+                <Cell>
+                    <Text class="config-sub">Defect</Text>
+                </Cell>
+                <Cell>
+                    <Panel class="config-toggle" >
+                        <Toggle class="config-sub"/>
+                    </Panel>
+                </Cell>
+            </Row>
+            <Row preferredHeight="40">
+                <Cell>
+                    <Text class="config-sub">Watcher</Text>
+                </Cell>
+                <Cell>
+                    <Panel class="config-toggle" >
+                        <Toggle class="config-sub"/>
+                    </Panel>
+                </Cell>
+            </Row>
+            <Row preferredHeight="40">
+                <Cell>
+                    <Text class="config-sub">Colorless</Text>
+                </Cell>
+                <Cell>
+                    <Panel class="config-toggle" >
+                        <Toggle class="config-sub"/>
+                    </Panel>
+                </Cell>
+            </Row>
+            <Row preferredHeight="40">
+                <Cell>
+                    <Text class="config-sub">Curses</Text>
+                </Cell>
+                <Cell>
+                    <Panel class="config-toggle" >
+                        <Toggle class="config-sub"/>
+                    </Panel>
+                </Cell>
+            </Row>
+            <Row preferredHeight="40">
+                <Cell>
+                    <Text class="config-sub">Relics</Text>
+                </Cell>
+                <Cell>
+                    <Panel class="config-toggle" >
+                        <Toggle class="config-sub"/>
+                    </Panel>
+                </Cell>
+            </Row>
+            <Row preferredHeight="40">
+                <Cell>
+                    <Text class="config-sub">Boss relics</Text>
+                </Cell>
+                <Cell>
+                    <Panel class="config-toggle" >
+                        <Toggle class="config-sub"/>
+                    </Panel>
+                </Cell>
+            </Row>
+            <Row preferredHeight="40">
+                <Cell>
+                    <Text class="config-sub">Potions</Text>
+                </Cell>
+                <Cell>
+                    <Panel class="config-toggle" >
+                        <Toggle class="config-sub"/>
+                    </Panel>
+                </Cell>
+            </Row>
+        </TableLayout>
+    </VerticalLayout>
+</Panel>
